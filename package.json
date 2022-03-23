@@ -1,0 +1,9 @@
+{
+  "name": "NewsViewer",
+  "version": "1.00",
+  "description": "NewsViewer",
+  "main": "index.js",
+  "repository": "yes",
+  "author": "S-YC <s9292909@gmail.com>",
+  "license": "x"
+}
