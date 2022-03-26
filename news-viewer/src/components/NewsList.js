@@ -6,17 +6,17 @@ import axios from "axios";
 const NewsItemBlock = styled.div`
     box-sizing: border-box;
     padding-bottom: 3rem;
-    width: 768px:
+    width: 768px;
     margin: 0 auto;
     margin-top: 2rem;
     @media screen and (max-width: 768px) {
-        wdith: 100%;
+        width: 100%;
         padding-left: 1rem;
         padding-right: 1rem;
     }
 `;
 
-const NewsList = () => {
+const NewsList = ({category} ) => {
     const [ articles, setArticles ] = useState(null);
     const [ loading , setLoading ] = useState(null);
 
@@ -27,8 +27,10 @@ const NewsList = () => {
             setLoading(true)
             // try catch문 에러 처리
             try {
+                // props로 넘어온 state로 
+                const query = category === 'all' ? '' : `&category=${category}`;
                 const response = await axios.get(
-                    'https://newsapi.org/v2/top-headlines?country=kr&apiKey=afda249a1ccb482fa0944d12a295021b',
+                    `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=afda249a1ccb482fa0944d12a295021b`,
                 );
                 // API 데이터 state 저장
                 setArticles(response.data.articles)
@@ -38,7 +40,7 @@ const NewsList = () => {
             setLoading(false)
         };
         fetchData();
-    }, []);
+    }, [category]);
 
     // 대기 중
     if (loading) {
@@ -59,4 +61,4 @@ const NewsList = () => {
     );
 };
 
-export default NewsList;
+export default React.memo(NewsList);
